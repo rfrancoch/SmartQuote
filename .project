@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>SMARTQUOTE_SERVICES</name>
+=======
+	<name>SIMPLE_REST_SERVICE</name>
+>>>>>>> 9b489a650f5d667c9546508052433d9156b2b429
 	<comment></comment>
 	<projects>
 	</projects>
