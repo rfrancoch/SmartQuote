@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<name>SMARTQUOTE_SERVICES</name>
 =======
 	<name>SIMPLE_REST_SERVICE</name>
 >>>>>>> 9b489a650f5d667c9546508052433d9156b2b429
+=======
+	<name>SIMPLE_REST_SERVICE</name>
+>>>>>>> bb799e7a20f7dfcb465df5878042d2ca2b4d5b17
 	<comment></comment>
 	<projects>
 	</projects>
