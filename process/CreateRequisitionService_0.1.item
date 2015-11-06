@@ -104,14 +104,14 @@
     <routinesParameter id="_5cp3MILeEeW99OSUevQybw" name="TalendDate"/>
     <routinesParameter id="_5c9ZMILeEeW99OSUevQybw" name="TalendString"/>
   </parameters>
-  <node componentName="tRESTRequest" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="96" posY="96">
+  <node componentName="tRESTRequest" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="96" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTRequest_1" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="TEXT" name="REST_ENDPOINT" value="&quot;http://localhost:8088/service&quot;"/>
     <elementParameter field="TABLE" name="SCHEMAS">
       <elementValue elementRef="SCHEMA" value="response"/>
       <elementValue elementRef="HTTP_VERB" value="POST"/>
-      <elementValue elementRef="URI_PATTERN" value="&quot;/resp&quot;"/>
+      <elementValue elementRef="URI_PATTERN" value="&quot;/requisition&quot;"/>
       <elementValue elementRef="CONSUMES" value="XML-JSON"/>
       <elementValue elementRef="PRODUCES" value="XML-JSON"/>
       <elementValue elementRef="STREAMING" value="false"/>
@@ -141,12 +141,13 @@
       <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="256" posY="64">
+  <node componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="320" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tXMLMap_1" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" show="false"/>
     <elementParameter field="CHECK" name="KEEP_ORDER_FOR_DOCUMENT" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="MapXMLIntoValues"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="values">
       <column comment="" key="false" length="-1" name="id_user" nullable="true" precision="-1" sourceType="id_String" type="id_String" usefulColumn="true"/>
@@ -210,7 +211,7 @@
       <connections xsi:type="TalendXMLMap:Connection" source="//@node.1/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.11" target="//@node.1/@nodeData/@outputTrees.0/@nodes.11"/>
     </nodeData>
   </node>
-  <node componentName="tMysqlRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="160">
+  <node componentName="tMysqlRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="512" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlRow_1" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_5"/>
@@ -226,7 +227,7 @@
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;insert into requisitions (id_user, id_category, description, shipping_address, quantity, base_amount, max_amount, limit_date, status, open_date, close_date, isnotified_open) &#xD;&#xA;values ( &quot; + values.id_user + &quot;,&quot; +  values.id_category + &quot;,'&quot;  + values.description + &quot;','&quot;  + values.shipping_address + &quot;',&quot;  + values.quantity +&quot;,&quot;+ values.base_amount + &quot;,&quot; + values.max_amount + &quot;,'&quot; +  TalendDate.getDate(&quot;CCYY-MM-DD hh:mm:ss&quot;)+ &quot;',&quot; + values.status + &quot;,'&quot; +  TalendDate.getDate(&quot;CCYY-MM-DD hh:mm:ss&quot;) + &quot;','&quot; +   TalendDate.getDate(&quot;CCYY-MM-DD hh:mm:ss&quot;) + &quot;',&quot; +  values.isnotified_open + &quot;);&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;insert into requisitions (id_user, id_category, description, shipping_address, quantity, base_amount, max_amount, limit_date, status, open_date, close_date, isnotified_open) &#xD;&#xA;values ( &quot; &#xD;&#xA;+ values.id_user + &quot;,&quot; &#xD;&#xA;+  values.id_category + &quot;,'&quot;  &#xD;&#xA;+ values.description + &quot;','&quot;  &#xD;&#xA;+ values.shipping_address + &quot;',&quot;  &#xD;&#xA;+  values.quantity +&quot;,&quot;&#xD;&#xA;+ values.base_amount + &quot;,&quot; &#xD;&#xA;+  values.max_amount + &quot;,'&quot; &#xD;&#xA;+  values.limit_date + &quot;',&quot; &#xD;&#xA;+  values.status + &quot;,'&quot; &#xD;&#xA;+  values.open_date + &quot;','&quot; &#xD;&#xA;+   values.close_date + &quot;',&quot; &#xD;&#xA;+  values.isnotified_open + &quot;);&quot;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
@@ -239,6 +240,7 @@
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+    <elementParameter field="TEXT" name="LABEL" value="InsertQuery"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tMysqlRow_1">
       <column comment="" key="false" length="-1" name="id_user" nullable="true" precision="-1" sourceType="id_String" type="id_String" usefulColumn="true"/>
@@ -271,7 +273,7 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="64">
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="672" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLogRow_1" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
@@ -313,6 +315,7 @@
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="100" show="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="LogResults"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_1">
       <column comment="" key="false" length="-1" name="id_user" nullable="true" precision="-1" sourceType="id_String" type="id_String" usefulColumn="true"/>
@@ -329,7 +332,7 @@
       <column comment="" key="false" length="-1" name="isnotified_open" nullable="true" precision="-1" sourceType="id_String" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="768" posY="160">
+  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="864" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTResponse_1" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="REST_RESPONSE_SCHEMA_TYPE" name="RESPONSE_TYPE" value="id_Document"/>
@@ -337,6 +340,8 @@
     <elementParameter field="TEXT" name="CUSTOM_STATUS_CODE" value="200" show="false"/>
     <elementParameter field="TABLE" name="RESPONSE_HEADERS"/>
     <elementParameter field="CHECK" name="UNWRAP_JSON_RESPONSE" value="false"/>
+    <elementParameter field="TEXT" name="JSON_ARRAY_KEYS" value=""/>
+    <elementParameter field="TEXT" name="LABEL" value="RESTResponse"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tRESTResponse_1">
       <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
