@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /temp
 /code/routines/system/
 /sqlPatterns
@@ -5,3 +6,8 @@
 .project
 talend.project
 *recycle_bin.index
+=======
+code/
+.project
+talend.project
+>>>>>>> 913475053ed2e844ba15c1d2486edc8d3ad66391
