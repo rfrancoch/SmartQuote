@@ -7,7 +7,7 @@ INSTRUCTIONS FOR GETTING THE PROJECT FROM GIT
 git init
 git remote add origin https://github.com/rfrancoch/SmartQuote-Services.git
 git fetch
-git checkout -t origin/master
+git checkout -t origin/develop_clear
 
 
 4. OPEN THE PROJECT IN TALEND
