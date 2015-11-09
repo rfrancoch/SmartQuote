@@ -1,2 +1,8 @@
+/temp
+/code/routines/system/
+/sqlPatterns
 /.settings
-/metadata
+.project
+talend.project
+*recycle_bin.index
+
