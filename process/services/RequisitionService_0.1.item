@@ -2,8 +2,8 @@
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendXMLMap="http://www.talend.org/xmlmap" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default"/>
   <parameters>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="64" show="false"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="64" show="false"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0" show="false"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="0" show="false"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" value="" show="false"/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" value="" show="false"/>
     <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" value="" show="false"/>
@@ -104,26 +104,14 @@
     <routinesParameter id="_zAwZ14F1EeW9O9ugCFFpjA" name="TalendDate"/>
     <routinesParameter id="_zA6K0IF1EeW9O9ugCFFpjA" name="TalendString"/>
   </parameters>
-  <node componentName="tRESTRequest" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="0" posY="192">
+  <node componentName="tRESTRequest" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="92" posY="128">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTRequest_1" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
-    <elementParameter field="TEXT" name="REST_ENDPOINT" value="&quot;http://localhost:8088/api-requisition&quot;"/>
+    <elementParameter field="TEXT" name="REST_ENDPOINT" value="&quot;http://localhost:8088/api/requisition&quot;"/>
     <elementParameter field="TABLE" name="SCHEMAS">
-      <elementValue elementRef="SCHEMA" value="getRequisitionsByCategory"/>
+      <elementValue elementRef="SCHEMA" value="getRequisitions"/>
       <elementValue elementRef="HTTP_VERB" value="GET"/>
-      <elementValue elementRef="URI_PATTERN" value="&quot;/category/{category_id}/&quot;"/>
-      <elementValue elementRef="CONSUMES" value="NONE"/>
-      <elementValue elementRef="PRODUCES" value="XML-JSON"/>
-      <elementValue elementRef="STREAMING" value="false"/>
-      <elementValue elementRef="SCHEMA" value="getRequisitionsOpenByCategory"/>
-      <elementValue elementRef="HTTP_VERB" value="GET"/>
-      <elementValue elementRef="URI_PATTERN" value="&quot;/category/{category_id}/open/&quot;"/>
-      <elementValue elementRef="CONSUMES" value="NONE"/>
-      <elementValue elementRef="PRODUCES" value="XML-JSON"/>
-      <elementValue elementRef="STREAMING" value="false"/>
-      <elementValue elementRef="SCHEMA" value="getRequisitionsNotNotifiedByCategory"/>
-      <elementValue elementRef="HTTP_VERB" value="GET"/>
-      <elementValue elementRef="URI_PATTERN" value="&quot;/category/{category_id}/all/&quot;"/>
+      <elementValue elementRef="URI_PATTERN" value="&quot;/&quot;"/>
       <elementValue elementRef="CONSUMES" value="NONE"/>
       <elementValue elementRef="PRODUCES" value="XML-JSON"/>
       <elementValue elementRef="STREAMING" value="false"/>
@@ -131,6 +119,12 @@
       <elementValue elementRef="HTTP_VERB" value="POST"/>
       <elementValue elementRef="URI_PATTERN" value="&quot;/&quot;"/>
       <elementValue elementRef="CONSUMES" value="XML-JSON"/>
+      <elementValue elementRef="PRODUCES" value="XML-JSON"/>
+      <elementValue elementRef="STREAMING" value="false"/>
+      <elementValue elementRef="SCHEMA" value="getOffersByRequisitions"/>
+      <elementValue elementRef="HTTP_VERB" value="GET"/>
+      <elementValue elementRef="URI_PATTERN" value="&quot;/{id}/offers&quot;"/>
+      <elementValue elementRef="CONSUMES" value="NONE"/>
       <elementValue elementRef="PRODUCES" value="XML-JSON"/>
       <elementValue elementRef="STREAMING" value="false"/>
     </elementParameter>
@@ -155,157 +149,24 @@
       <column defaultValue="" key="false" length="0" name="status" nullable="true" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column defaultValue="" key="false" length="1024" name="error" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
-    <metadata connector="FLOW" label="getRequisitions" name="getRequisitionsByCategory">
-      <column comment="" key="false" length="-1" name="category_id" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-    <metadata connector="FLOW" label="getOpenRequisitions" name="getRequisitionsOpenByCategory">
-      <column comment="" key="false" length="-1" name="category_id" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-    <metadata connector="FLOW" label="getWithoutNotification" name="getRequisitionsNotNotifiedByCategory">
-      <column comment="" key="false" length="-1" name="category_id" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
+    <metadata connector="FLOW" label="getWithoutNotification" name="getRequisitions"/>
     <metadata connector="FLOW" label="response" name="addRequisition">
       <column comment="" key="false" length="-1" name="body" nullable="true" pattern="" precision="-1" sourceType="" type="id_Document" usefulColumn="true"/>
     </metadata>
-  </node>
-  <node componentName="tFlowToIterate" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="0">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFlowToIterate_1" show="false"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
-    <elementParameter field="CHECK" name="DEFAULT_MAP" value="true"/>
-    <elementParameter field="TABLE" name="MAP" show="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="Iterate Requisitions"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tFlowToIterate_1"/>
-  </node>
-  <node componentName="tMysqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="0">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlInput_1" show="false"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
-    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_5"/>
-    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
-    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false"/>
-    <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
-    <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;"/>
-    <elementParameter field="TEXT" name="DBNAME" value="&quot;smartquote&quot;"/>
-    <elementParameter field="TEXT" name="TYPE" value="MySQL" show="false"/>
-    <elementParameter field="TEXT" name="USER" value="&quot;squser&quot;"/>
-    <elementParameter field="PASSWORD" name="PASS" value="50ccwHVB7VCPlLnbswdaEw=="/>
-    <elementParameter field="DBTABLE" name="TABLE" value="&quot;requisitions&quot;"/>
-    <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
-    <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
-    <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
-    <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select id, id_category, description, shipping_address, quantity, limit_date, base_amount&#xD;&#xA;from requisitions where isnotified_open=1 and id_category =&quot; + getRequisitions.category_id"/>
-    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
-    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
-    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
-    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id" show="false"/>
-    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&quot;"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="ENABLE_STREAM" value="false"/>
-    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
-    <elementParameter field="TABLE" name="TRIM_COLUMN">
-      <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="id_category"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="description"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="shipping_address"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="quantity"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="limit_date"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="base_amount"/>
-      <elementValue elementRef="TRIM" value="false"/>
-    </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="Get Requisitions"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tMysqlInput_1">
-      <column comment="" key="false" length="-1" name="id" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="id_category" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="200" name="description" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="200" usefulColumn="true"/>
-      <column comment="" key="false" length="200" name="shipping_address" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="200" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="quantity" nullable="true" pattern="" precision="-1" sourceType="DOUBLE" type="id_Double" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="limit_date" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="DATETIME" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="base_amount" nullable="true" pattern="" precision="-1" sourceType="DOUBLE" type="id_Double" usefulColumn="true"/>
+    <metadata connector="FLOW" label="getOfferByRequisitions" name="getOffersByRequisitions">
+      <column comment="" key="false" length="-1" name="id" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tFlowToIterate" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFlowToIterate_2" show="false"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
-    <elementParameter field="CHECK" name="DEFAULT_MAP" value="true"/>
-    <elementParameter field="TABLE" name="MAP" show="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="Iterate Open"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tFlowToIterate_2"/>
-  </node>
-  <node componentName="tMysqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlInput_2" show="false"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
-    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_5"/>
-    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
-    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false"/>
-    <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
-    <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;"/>
-    <elementParameter field="TEXT" name="DBNAME" value="&quot;smartquote&quot;"/>
-    <elementParameter field="TEXT" name="TYPE" value="MySQL" show="false"/>
-    <elementParameter field="TEXT" name="USER" value="&quot;squser&quot;"/>
-    <elementParameter field="PASSWORD" name="PASS" value="50ccwHVB7VCPlLnbswdaEw=="/>
-    <elementParameter field="DBTABLE" name="TABLE" value="&quot;requisitions&quot;"/>
-    <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
-    <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
-    <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
-    <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select id, id_category, description, shipping_address, quantity, limit_date, base_amount&#xD;&#xA;from requisitions where isnotified_open=1 and status=0 and id_category =&quot; + getOpenRequisitions.category_id"/>
-    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
-    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
-    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
-    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id" show="false"/>
-    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&quot;"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="ENABLE_STREAM" value="false"/>
-    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
-    <elementParameter field="TABLE" name="TRIM_COLUMN">
-      <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="id_category"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="description"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="shipping_address"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="quantity"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="limit_date"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="base_amount"/>
-      <elementValue elementRef="TRIM" value="false"/>
-    </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="Get Open Requisitions"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tMysqlInput_2">
-      <column comment="" key="false" length="-1" name="id" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="id_category" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="description" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="shipping_address" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="quantity" nullable="true" pattern="" precision="-1" sourceType="DOUBLE" type="id_Double" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="limit_date" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="DATETIME" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="base_amount" nullable="true" pattern="" precision="-1" sourceType="DOUBLE" type="id_Double" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tFlowToIterate" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="256">
+  <node componentName="tFlowToIterate" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="128">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFlowToIterate_3" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="CHECK" name="DEFAULT_MAP" value="true"/>
     <elementParameter field="TABLE" name="MAP" show="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="Iterate without"/>
+    <elementParameter field="TEXT" name="LABEL" value="Iterate requisitions"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFlowToIterate_3"/>
   </node>
-  <node componentName="tMysqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="256">
+  <node componentName="tMysqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="128">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlInput_3" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_5"/>
@@ -322,7 +183,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select id, id_category, description, shipping_address, quantity, limit_date, base_amount&#xD;&#xA;from requisitions where status=0 and id_category =&quot; + getOpenRequisitions.category_id"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select id, id_category, description, shipping_address, quantity, limit_date, base_amount from requisitions &quot;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
@@ -348,7 +209,7 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="base_amount"/>
       <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="Get wo notificationRequitisions"/>
+    <elementParameter field="TEXT" name="LABEL" value="Get requisitions from db"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tMysqlInput_3">
       <column comment="" key="false" length="-1" name="id" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" usefulColumn="true"/>
@@ -360,125 +221,53 @@
       <column comment="" key="false" length="-1" name="base_amount" nullable="true" pattern="" precision="-1" sourceType="DOUBLE" type="id_Double" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="768" posY="0">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tXMLMap_2" show="false"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
-    <elementParameter field="EXTERNAL" name="MAP" value=""/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" show="false"/>
-    <elementParameter field="CHECK" name="KEEP_ORDER_FOR_DOCUMENT" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="MapXMLofAllCategories"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="all">
-      <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
-    </metadata>
-    <nodeData xsi:type="TalendXMLMap:XmlMapData">
-      <outputTrees activateCondensedTool="true" name="all" allInOne="true">
-        <nodes name="body" expression="" type="id_Document" xpath="all/body">
-          <children xsi:type="TalendXMLMap:OutputTreeNode" name="requisitionCategories" expression="" type="id_String" xpath="all.body:/requisitionCategories" main="true">
-            <children xsi:type="TalendXMLMap:OutputTreeNode" name="requisitionCategory" expression="" type="id_String" xpath="all.body:/requisitionCategories/requisitionCategory" loop="true" main="true">
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id" expression="row2.id" type="id_Integer" xpath="all.body:/requisitionCategories/requisitionCategory/id"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id_category" expression="row2.id_category" type="id_Integer" xpath="all.body:/requisitionCategories/requisitionCategory/id_category"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="description" expression="row2.description" type="id_String" xpath="all.body:/requisitionCategories/requisitionCategory/description"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="shipping_address" expression="row2.shipping_address" type="id_String" xpath="all.body:/requisitionCategories/requisitionCategory/shipping_address"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="quantity" expression="row2.quantity" type="id_Double" xpath="all.body:/requisitionCategories/requisitionCategory/quantity"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="limit_date" expression="row2.limit_date" type="id_Date" xpath="all.body:/requisitionCategories/requisitionCategory/limit_date"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="base_amount" expression="row2.base_amount" type="id_Double" xpath="all.body:/requisitionCategories/requisitionCategory/base_amount"/>
-            </children>
-          </children>
-        </nodes>
-      </outputTrees>
-      <varTables name="Var" minimized="true"/>
-    </nodeData>
-  </node>
-  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="992" posY="0">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTResponse_1" show="false"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
-    <elementParameter field="REST_RESPONSE_SCHEMA_TYPE" name="RESPONSE_TYPE" value="id_Document"/>
-    <elementParameter field="CLOSED_LIST" name="STATUS_CODE" value="200"/>
-    <elementParameter field="TEXT" name="CUSTOM_STATUS_CODE" value="200" show="false"/>
-    <elementParameter field="TABLE" name="RESPONSE_HEADERS"/>
-    <elementParameter field="CHECK" name="UNWRAP_JSON_RESPONSE" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="Response All"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tRESTResponse_1">
-      <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="768" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tXMLMap_1" show="false"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
-    <elementParameter field="EXTERNAL" name="MAP" value=""/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" show="false"/>
-    <elementParameter field="CHECK" name="KEEP_ORDER_FOR_DOCUMENT" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="XML Opened Categories"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="openedRequisitions">
-      <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
-    </metadata>
-    <nodeData xsi:type="TalendXMLMap:XmlMapData">
-      <outputTrees activateCondensedTool="true" name="openedRequisitions" allInOne="true">
-        <nodes name="body" expression="" type="id_Document" xpath="openedRequisitions/body" pattern="">
-          <children xsi:type="TalendXMLMap:OutputTreeNode" name="openRequisitionCategories" expression="" type="id_String" xpath="openedRequisitions.body:/openRequisitionCategories" main="true">
-            <children xsi:type="TalendXMLMap:OutputTreeNode" name="openRequisitionCategory" expression="" type="id_String" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory" loop="true" main="true">
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id" expression="row4.id" type="id_Integer" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/id"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id_category" expression="row4.id_category" type="id_Integer" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/id_category"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="description" expression="row4.description" type="id_String" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/description"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="shipping_address" expression="row4.shipping_address" type="id_String" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/shipping_address"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="quantity" expression="row4.quantity" type="id_Double" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/quantity"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="limit_date" expression="row4.limit_date" type="id_Date" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/limit_date"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="base_amount" expression="row4.base_amount" type="id_Double" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/base_amount"/>
-            </children>
-          </children>
-        </nodes>
-      </outputTrees>
-      <varTables name="Var" minimized="true"/>
-    </nodeData>
-  </node>
-  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="992" posY="128">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTResponse_2" show="false"/>
-    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
-    <elementParameter field="REST_RESPONSE_SCHEMA_TYPE" name="RESPONSE_TYPE" value="id_Document"/>
-    <elementParameter field="CLOSED_LIST" name="STATUS_CODE" value="200"/>
-    <elementParameter field="TEXT" name="CUSTOM_STATUS_CODE" value="200" show="false"/>
-    <elementParameter field="TABLE" name="RESPONSE_HEADERS"/>
-    <elementParameter field="CHECK" name="UNWRAP_JSON_RESPONSE" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="Opened"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tRESTResponse_2">
-      <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="768" posY="256">
+  <node componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="800" posY="128">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tXMLMap_3" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" show="false"/>
     <elementParameter field="CHECK" name="KEEP_ORDER_FOR_DOCUMENT" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="XML wo Notification Categories"/>
+    <elementParameter field="TEXT" name="LABEL" value="XML requisitions"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="copyOfopenedRequisitions">
+    <metadata connector="FLOW" name="requisitions">
       <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendXMLMap:XmlMapData">
-      <outputTrees activateCondensedTool="true" name="copyOfopenedRequisitions" allInOne="true">
-        <nodes name="body" expression="" type="id_Document" xpath="copyOfopenedRequisitions/body" pattern="">
-          <children xsi:type="TalendXMLMap:OutputTreeNode" name="openRequisitionCategories" expression="" type="id_String" xpath="copyOfopenedRequisitions.body:/openRequisitionCategories" main="true">
-            <children xsi:type="TalendXMLMap:OutputTreeNode" name="openRequisitionCategory" expression="" type="id_String" xpath="copyOfopenedRequisitions.body:/openRequisitionCategories/openRequisitionCategory" loop="true" main="true">
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id" expression="row6.id" type="id_Integer" xpath="copyOfopenedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/id"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id_category" expression="row6.id_category" type="id_Integer" xpath="copyOfopenedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/id_category"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="description" expression="row6.description" type="id_String" xpath="copyOfopenedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/description"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="shipping_address" expression="row6.shipping_address" type="id_String" xpath="copyOfopenedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/shipping_address"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="quantity" expression="row6.quantity" type="id_Double" xpath="copyOfopenedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/quantity"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="limit_date" expression="row6.limit_date" type="id_Date" xpath="copyOfopenedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/limit_date"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="base_amount" expression="row6.base_amount" type="id_Double" xpath="copyOfopenedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/base_amount"/>
+      <inputTrees name="row3" matchingMode="ALL_ROWS" lookupMode="LOAD_ONCE">
+        <nodes name="id" type="id_Integer" outgoingConnections="//@node.3/@nodeData/@connections.0" xpath="row3/id"/>
+        <nodes name="id_category" type="id_Integer" outgoingConnections="//@node.3/@nodeData/@connections.1" xpath="row3/id_category"/>
+        <nodes name="description" type="id_String" outgoingConnections="//@node.3/@nodeData/@connections.2" xpath="row3/description"/>
+        <nodes name="shipping_address" type="id_String" outgoingConnections="//@node.3/@nodeData/@connections.3" xpath="row3/shipping_address"/>
+        <nodes name="quantity" type="id_Double" outgoingConnections="//@node.3/@nodeData/@connections.4" xpath="row3/quantity"/>
+        <nodes name="limit_date" type="id_Date" outgoingConnections="//@node.3/@nodeData/@connections.5" xpath="row3/limit_date"/>
+        <nodes name="base_amount" type="id_Double" outgoingConnections="//@node.3/@nodeData/@connections.6" xpath="row3/base_amount"/>
+      </inputTrees>
+      <outputTrees activateCondensedTool="true" name="requisitions" allInOne="true">
+        <nodes name="body" expression="" type="id_Document" xpath="requisitions/body" pattern="">
+          <children xsi:type="TalendXMLMap:OutputTreeNode" name="root" expression="" type="id_String" xpath="requisitions.body:/root" main="true">
+            <children xsi:type="TalendXMLMap:OutputTreeNode" name="requisitions" expression="" type="id_String" xpath="requisitions.body:/root/requisitions" loop="true" main="true">
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id" expression=" row3.id" type="id_Integer" incomingConnections="//@node.3/@nodeData/@connections.0" xpath="requisitions.body:/root/requisitions/id"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id_category" expression=" row3.id_category" type="id_Integer" incomingConnections="//@node.3/@nodeData/@connections.1" xpath="requisitions.body:/root/requisitions/id_category"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="description" expression=" row3.description" type="id_String" incomingConnections="//@node.3/@nodeData/@connections.2" xpath="requisitions.body:/root/requisitions/description"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="shipping_address" expression=" row3.shipping_address" type="id_String" incomingConnections="//@node.3/@nodeData/@connections.3" xpath="requisitions.body:/root/requisitions/shipping_address"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="quantity" expression=" row3.quantity" type="id_Double" incomingConnections="//@node.3/@nodeData/@connections.4" xpath="requisitions.body:/root/requisitions/quantity"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="limit_date" expression=" row3.limit_date" type="id_Date" incomingConnections="//@node.3/@nodeData/@connections.5" xpath="requisitions.body:/root/requisitions/limit_date"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="base_amount" expression=" row3.base_amount" type="id_Double" incomingConnections="//@node.3/@nodeData/@connections.6" xpath="requisitions.body:/root/requisitions/base_amount"/>
             </children>
           </children>
         </nodes>
       </outputTrees>
       <varTables name="Var" minimized="true"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.3/@nodeData/@inputTrees.0/@nodes.0" target="//@node.3/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.0"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.3/@nodeData/@inputTrees.0/@nodes.1" target="//@node.3/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.1"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.3/@nodeData/@inputTrees.0/@nodes.2" target="//@node.3/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.2"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.3/@nodeData/@inputTrees.0/@nodes.3" target="//@node.3/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.3"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.3/@nodeData/@inputTrees.0/@nodes.4" target="//@node.3/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.4"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.3/@nodeData/@inputTrees.0/@nodes.5" target="//@node.3/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.5"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.3/@nodeData/@inputTrees.0/@nodes.6" target="//@node.3/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.6"/>
     </nodeData>
   </node>
-  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="992" posY="256">
+  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1024" posY="128">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTResponse_3" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="REST_RESPONSE_SCHEMA_TYPE" name="RESPONSE_TYPE" value="id_Document"/>
@@ -486,13 +275,13 @@
     <elementParameter field="TEXT" name="CUSTOM_STATUS_CODE" value="200" show="false"/>
     <elementParameter field="TABLE" name="RESPONSE_HEADERS"/>
     <elementParameter field="CHECK" name="UNWRAP_JSON_RESPONSE" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="Without notification"/>
+    <elementParameter field="TEXT" name="LABEL" value="RESTResponse requisitions"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tRESTResponse_3">
       <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="352" posY="384">
+  <node componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="384" posY="256">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tXMLMap_4" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
@@ -518,51 +307,51 @@
       <inputTrees name="addRequisition" matchingMode="ALL_ROWS" lookupMode="LOAD_ONCE">
         <nodes name="body" expression="" type="id_Document" xpath="addRequisition/body">
           <children name="requisition" expression="" type="id_String" xpath="addRequisition.body:/requisition" loop="true" main="true">
-            <children name="id_user" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.0" xpath="addRequisition.body:/requisition/id_user"/>
-            <children name="id_category" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.1" xpath="addRequisition.body:/requisition/id_category"/>
-            <children name="description" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.2" xpath="addRequisition.body:/requisition/description"/>
-            <children name="shipping_address" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.3" xpath="addRequisition.body:/requisition/shipping_address"/>
-            <children name="quantity" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.4" xpath="addRequisition.body:/requisition/quantity"/>
-            <children name="base_amount" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.5" xpath="addRequisition.body:/requisition/base_amount"/>
-            <children name="max_amount" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.6" xpath="addRequisition.body:/requisition/max_amount"/>
-            <children name="limit_date" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.7" xpath="addRequisition.body:/requisition/limit_date"/>
-            <children name="status" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.8" xpath="addRequisition.body:/requisition/status"/>
-            <children name="open_date" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.9" xpath="addRequisition.body:/requisition/open_date"/>
-            <children name="close_date" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.10" xpath="addRequisition.body:/requisition/close_date"/>
-            <children name="isnotified_open" type="id_String" outgoingConnections="//@node.13/@nodeData/@connections.11" xpath="addRequisition.body:/requisition/isnotified_open"/>
+            <children name="id_user" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.0" xpath="addRequisition.body:/requisition/id_user"/>
+            <children name="id_category" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.1" xpath="addRequisition.body:/requisition/id_category"/>
+            <children name="description" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.2" xpath="addRequisition.body:/requisition/description"/>
+            <children name="shipping_address" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.3" xpath="addRequisition.body:/requisition/shipping_address"/>
+            <children name="quantity" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.4" xpath="addRequisition.body:/requisition/quantity"/>
+            <children name="base_amount" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.5" xpath="addRequisition.body:/requisition/base_amount"/>
+            <children name="max_amount" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.6" xpath="addRequisition.body:/requisition/max_amount"/>
+            <children name="limit_date" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.7" xpath="addRequisition.body:/requisition/limit_date"/>
+            <children name="status" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.8" xpath="addRequisition.body:/requisition/status"/>
+            <children name="open_date" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.9" xpath="addRequisition.body:/requisition/open_date"/>
+            <children name="close_date" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.10" xpath="addRequisition.body:/requisition/close_date"/>
+            <children name="isnotified_open" type="id_String" outgoingConnections="//@node.5/@nodeData/@connections.11" xpath="addRequisition.body:/requisition/isnotified_open"/>
           </children>
         </nodes>
       </inputTrees>
       <outputTrees name="values">
-        <nodes name="id_user" expression="[addRequisition.body:/requisition/id_user]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.0" xpath="values/id_user"/>
-        <nodes name="id_category" expression="[addRequisition.body:/requisition/id_category]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.1" xpath="values/id_category"/>
-        <nodes name="description" expression="[addRequisition.body:/requisition/description]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.2" xpath="values/description"/>
-        <nodes name="shipping_address" expression="[addRequisition.body:/requisition/shipping_address]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.3" xpath="values/shipping_address"/>
-        <nodes name="quantity" expression="[addRequisition.body:/requisition/quantity]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.4" xpath="values/quantity"/>
-        <nodes name="base_amount" expression="[addRequisition.body:/requisition/base_amount]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.5" xpath="values/base_amount"/>
-        <nodes name="max_amount" expression="[addRequisition.body:/requisition/max_amount]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.6" xpath="values/max_amount"/>
-        <nodes name="limit_date" expression="[addRequisition.body:/requisition/limit_date]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.7" xpath="values/limit_date"/>
-        <nodes name="status" expression="[addRequisition.body:/requisition/status]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.8" xpath="values/status"/>
-        <nodes name="open_date" expression="[addRequisition.body:/requisition/open_date]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.9" xpath="values/open_date"/>
-        <nodes name="close_date" expression="[addRequisition.body:/requisition/close_date]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.10" xpath="values/close_date"/>
-        <nodes name="isnotified_open" expression="[addRequisition.body:/requisition/isnotified_open]" type="id_String" incomingConnections="//@node.13/@nodeData/@connections.11" xpath="values/isnotified_open"/>
+        <nodes name="id_user" expression="[addRequisition.body:/requisition/id_user]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.0" xpath="values/id_user"/>
+        <nodes name="id_category" expression="[addRequisition.body:/requisition/id_category]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.1" xpath="values/id_category"/>
+        <nodes name="description" expression="[addRequisition.body:/requisition/description]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.2" xpath="values/description"/>
+        <nodes name="shipping_address" expression="[addRequisition.body:/requisition/shipping_address]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.3" xpath="values/shipping_address"/>
+        <nodes name="quantity" expression="[addRequisition.body:/requisition/quantity]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.4" xpath="values/quantity"/>
+        <nodes name="base_amount" expression="[addRequisition.body:/requisition/base_amount]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.5" xpath="values/base_amount"/>
+        <nodes name="max_amount" expression="[addRequisition.body:/requisition/max_amount]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.6" xpath="values/max_amount"/>
+        <nodes name="limit_date" expression="[addRequisition.body:/requisition/limit_date]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.7" xpath="values/limit_date"/>
+        <nodes name="status" expression="[addRequisition.body:/requisition/status]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.8" xpath="values/status"/>
+        <nodes name="open_date" expression="[addRequisition.body:/requisition/open_date]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.9" xpath="values/open_date"/>
+        <nodes name="close_date" expression="[addRequisition.body:/requisition/close_date]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.10" xpath="values/close_date"/>
+        <nodes name="isnotified_open" expression="[addRequisition.body:/requisition/isnotified_open]" type="id_String" incomingConnections="//@node.5/@nodeData/@connections.11" xpath="values/isnotified_open"/>
       </outputTrees>
       <varTables name="Var" minimized="true"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.0" target="//@node.13/@nodeData/@outputTrees.0/@nodes.0"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.1" target="//@node.13/@nodeData/@outputTrees.0/@nodes.1"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.2" target="//@node.13/@nodeData/@outputTrees.0/@nodes.2"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.3" target="//@node.13/@nodeData/@outputTrees.0/@nodes.3"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.4" target="//@node.13/@nodeData/@outputTrees.0/@nodes.4"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.5" target="//@node.13/@nodeData/@outputTrees.0/@nodes.5"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.6" target="//@node.13/@nodeData/@outputTrees.0/@nodes.6"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.7" target="//@node.13/@nodeData/@outputTrees.0/@nodes.7"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.8" target="//@node.13/@nodeData/@outputTrees.0/@nodes.8"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.9" target="//@node.13/@nodeData/@outputTrees.0/@nodes.9"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.10" target="//@node.13/@nodeData/@outputTrees.0/@nodes.10"/>
-      <connections xsi:type="TalendXMLMap:Connection" source="//@node.13/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.11" target="//@node.13/@nodeData/@outputTrees.0/@nodes.11"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.0" target="//@node.5/@nodeData/@outputTrees.0/@nodes.0"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.1" target="//@node.5/@nodeData/@outputTrees.0/@nodes.1"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.2" target="//@node.5/@nodeData/@outputTrees.0/@nodes.2"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.3" target="//@node.5/@nodeData/@outputTrees.0/@nodes.3"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.4" target="//@node.5/@nodeData/@outputTrees.0/@nodes.4"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.5" target="//@node.5/@nodeData/@outputTrees.0/@nodes.5"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.6" target="//@node.5/@nodeData/@outputTrees.0/@nodes.6"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.7" target="//@node.5/@nodeData/@outputTrees.0/@nodes.7"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.8" target="//@node.5/@nodeData/@outputTrees.0/@nodes.8"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.9" target="//@node.5/@nodeData/@outputTrees.0/@nodes.9"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.10" target="//@node.5/@nodeData/@outputTrees.0/@nodes.10"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.5/@nodeData/@inputTrees.0/@nodes.0/@children.0/@children.11" target="//@node.5/@nodeData/@outputTrees.0/@nodes.11"/>
     </nodeData>
   </node>
-  <node componentName="tMysqlRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="384">
+  <node componentName="tMysqlRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="256">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlRow_1" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_5"/>
@@ -624,7 +413,7 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="768" posY="384">
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="800" posY="256">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLogRow_1" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
@@ -683,7 +472,7 @@
       <column comment="" key="false" length="-1" name="isnotified_open" nullable="true" precision="-1" sourceType="id_String" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="992" posY="384">
+  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1024" posY="256">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTResponse_4" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="REST_RESPONSE_SCHEMA_TYPE" name="RESPONSE_TYPE" value="id_Document"/>
@@ -697,34 +486,164 @@
       <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
     </metadata>
   </node>
-  <connection connectorName="FLOW" label="getRequisitionsByCategory" lineStyle="0" metaname="getRequisitionsByCategory" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tRESTRequest_1" target="tFlowToIterate_1">
+  <node componentName="tFlowToIterate" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFlowToIterate_4" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
+    <elementParameter field="CHECK" name="DEFAULT_MAP" value="true"/>
+    <elementParameter field="TABLE" name="MAP" show="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="IterateThroughOffersByRequsition"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFlowToIterate_4"/>
+  </node>
+  <node componentName="tMysqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlInput_4" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_5"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false"/>
+    <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
+    <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;smartquote&quot;"/>
+    <elementParameter field="TEXT" name="TYPE" value="MySQL" show="false"/>
+    <elementParameter field="TEXT" name="USER" value="&quot;squser&quot;"/>
+    <elementParameter field="PASSWORD" name="PASS" value="50ccwHVB7VCPlLnbswdaEw=="/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;offer&quot;"/>
+    <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
+    <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select * from offer where id_requisition =&quot;  + getOffersByRequisitions.id"/>
+    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
+    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id" show="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&quot;"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="ENABLE_STREAM" value="false"/>
+    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
+    <elementParameter field="TABLE" name="TRIM_COLUMN">
+      <elementValue elementRef="SCHEMA_COLUMN" value="id"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="id_requisition"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="amount"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="delivery_in_days"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="delivery_type"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="comments"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="status"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="open_date"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="close_date"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="isnotified_open"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="isnotified_close"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="LABEL" value="QueryByRequisitionId"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tMysqlInput_4">
+      <column comment="" key="false" length="-1" name="id" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="id_requisition" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="amount" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="delivery_in_days" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="delivery_type" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="comments" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="status" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="open_date" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="close_date" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="isnotified_open" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="isnotified_close" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="800" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tXMLMap_5" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
+    <elementParameter field="EXTERNAL" name="MAP" value=""/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" show="false"/>
+    <elementParameter field="CHECK" name="KEEP_ORDER_FOR_DOCUMENT" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="MapXMLOffersByRequisitionID"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="requisitionOutput">
+      <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
+    </metadata>
+    <nodeData xsi:type="TalendXMLMap:XmlMapData">
+      <inputTrees name="row6" matchingMode="ALL_ROWS" lookupMode="LOAD_ONCE">
+        <nodes name="id" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.0" xpath="row6/id"/>
+        <nodes name="id_requisition" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.1" xpath="row6/id_requisition"/>
+        <nodes name="amount" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.2" xpath="row6/amount"/>
+        <nodes name="delivery_in_days" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.3" xpath="row6/delivery_in_days"/>
+        <nodes name="delivery_type" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.4" xpath="row6/delivery_type"/>
+        <nodes name="comments" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.5" xpath="row6/comments"/>
+        <nodes name="status" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.6" xpath="row6/status"/>
+        <nodes name="open_date" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.7" xpath="row6/open_date"/>
+        <nodes name="close_date" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.8" xpath="row6/close_date"/>
+        <nodes name="isnotified_open" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.9" xpath="row6/isnotified_open"/>
+        <nodes name="isnotified_close" type="id_String" outgoingConnections="//@node.11/@nodeData/@connections.10" xpath="row6/isnotified_close"/>
+      </inputTrees>
+      <outputTrees activateCondensedTool="true" name="requisitionOutput" allInOne="true">
+        <nodes name="body" expression="" type="id_Document" xpath="requisitionOutput/body">
+          <children xsi:type="TalendXMLMap:OutputTreeNode" name="root" expression="" type="id_String" xpath="requisitionOutput.body:/root" main="true">
+            <children xsi:type="TalendXMLMap:OutputTreeNode" name="offers" expression="" type="id_String" xpath="requisitionOutput.body:/root/offers" loop="true" main="true">
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id" expression="row6.id" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.0" xpath="requisitionOutput.body:/root/offers/id"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id_requisition" expression="row6.id_requisition" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.1" xpath="requisitionOutput.body:/root/offers/id_requisition"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="amount" expression="row6.amount" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.2" xpath="requisitionOutput.body:/root/offers/amount"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="delivery_in_days" expression="row6.delivery_in_days" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.3" xpath="requisitionOutput.body:/root/offers/delivery_in_days"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="delivery_type" expression="row6.delivery_type" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.4" xpath="requisitionOutput.body:/root/offers/delivery_type"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="comments" expression="row6.comments" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.5" xpath="requisitionOutput.body:/root/offers/comments"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="status" expression="row6.status" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.6" xpath="requisitionOutput.body:/root/offers/status"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="open_date" expression="row6.open_date" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.7" xpath="requisitionOutput.body:/root/offers/open_date"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="close_date" expression="row6.close_date" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.8" xpath="requisitionOutput.body:/root/offers/close_date"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="isnotified_open" expression="row6.isnotified_open" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.9" xpath="requisitionOutput.body:/root/offers/isnotified_open"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="isnotified_close" expression="row6.isnotified_close" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.10" xpath="requisitionOutput.body:/root/offers/isnotified_close"/>
+            </children>
+          </children>
+        </nodes>
+      </outputTrees>
+      <varTables name="Var" minimized="true"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.0" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.0"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.1" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.1"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.2" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.2"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.3" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.3"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.4" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.4"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.5" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.5"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.6" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.6"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.7" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.7"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.8" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.8"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.9" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.9"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.11/@nodeData/@inputTrees.0/@nodes.10" target="//@node.11/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.10"/>
+    </nodeData>
+  </node>
+  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1024" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTResponse_5" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
+    <elementParameter field="REST_RESPONSE_SCHEMA_TYPE" name="RESPONSE_TYPE" value="id_Document"/>
+    <elementParameter field="CLOSED_LIST" name="STATUS_CODE" value="200"/>
+    <elementParameter field="TEXT" name="CUSTOM_STATUS_CODE" value="200" show="false"/>
+    <elementParameter field="TABLE" name="RESPONSE_HEADERS"/>
+    <elementParameter field="CHECK" name="UNWRAP_JSON_RESPONSE" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="RESTResponseByRequisitionId"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tRESTResponse_5">
+      <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <connection connectorName="FLOW" label="getRequisitions" lineStyle="0" metaname="getRequisitions" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tRESTRequest_1" target="tFlowToIterate_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="category_id"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="getRequisitionsByCategory" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="getRequisitions" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="getRequisitionsOpenByCategory" lineStyle="0" metaname="getRequisitionsOpenByCategory" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tRESTRequest_1" target="tFlowToIterate_2">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="category_id"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="getRequisitionsOpenByCategory" show="false"/>
-  </connection>
-  <connection connectorName="FLOW" label="getRequisitionsNotNotifiedByCategory" lineStyle="0" metaname="getRequisitionsNotNotifiedByCategory" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tRESTRequest_1" target="tFlowToIterate_3">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="category_id"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="getRequisitionsNotNotifiedByCategory" show="false"/>
-  </connection>
-  <connection connectorName="FLOW" label="addRequisition" lineStyle="0" metaname="addRequisition" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tRESTRequest_1" target="tXMLMap_4">
+  <connection connectorName="FLOW" label="addRequisition" lineStyle="0" metaname="addRequisition" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tRESTRequest_1" target="tXMLMap_4">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="body"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -733,69 +652,14 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="addRequisition" show="false"/>
   </connection>
-  <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFlowToIterate_1" offsetLabelX="0" offsetLabelY="0" source="tFlowToIterate_1" target="tMysqlInput_1">
-    <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
-    <elementParameter field="TEXT" name="NUMBER_PARALLEL" value="2" show="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="iterate1" show="false"/>
-  </connection>
-  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tMysqlInput_1" offsetLabelX="0" offsetLabelY="0" source="tMysqlInput_1" target="tXMLMap_2">
+  <connection connectorName="FLOW" label="getOffersByRequisitions" lineStyle="0" metaname="getOffersByRequisitions" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tRESTRequest_1" target="tFlowToIterate_4">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="id"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="id_category"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="description"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="shipping_address"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="quantity"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="limit_date"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="base_amount"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" show="false"/>
-  </connection>
-  <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFlowToIterate_2" offsetLabelX="0" offsetLabelY="0" source="tFlowToIterate_2" target="tMysqlInput_2">
-    <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
-    <elementParameter field="TEXT" name="NUMBER_PARALLEL" value="2" show="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="iterate2" show="false"/>
-  </connection>
-  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tMysqlInput_2" offsetLabelX="0" offsetLabelY="0" source="tMysqlInput_2" target="tXMLMap_1">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="id"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="id_category"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="description"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="shipping_address"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="quantity"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="limit_date"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="base_amount"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="getOffersByRequisitions" show="false"/>
   </connection>
   <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFlowToIterate_3" offsetLabelX="0" offsetLabelY="0" source="tFlowToIterate_3" target="tMysqlInput_3">
     <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
@@ -829,32 +693,14 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row3" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="all" lineStyle="0" metaname="all" offsetLabelX="0" offsetLabelY="0" source="tXMLMap_2" target="tRESTResponse_1">
+  <connection connectorName="FLOW" label="requisitions" lineStyle="0" metaname="requisitions" offsetLabelX="2" offsetLabelY="-36" source="tXMLMap_3" target="tRESTResponse_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="body"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="all" show="false"/>
-  </connection>
-  <connection connectorName="FLOW" label="openedRequisitions" lineStyle="0" metaname="openedRequisitions" offsetLabelX="3" offsetLabelY="-17" source="tXMLMap_1" target="tRESTResponse_2">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="body"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="openedRequisitions" show="false"/>
-  </connection>
-  <connection connectorName="FLOW" label="copyOfopenedRequisitions" lineStyle="0" metaname="copyOfopenedRequisitions" offsetLabelX="2" offsetLabelY="-36" source="tXMLMap_3" target="tRESTResponse_3">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="body"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" value="copyOfopenedRequisitions" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="requisitions" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="values" lineStyle="0" metaname="values" offsetLabelX="3" offsetLabelY="-9" source="tXMLMap_4" target="tMysqlRow_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -885,6 +731,59 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row5" show="false"/>
+  </connection>
+  <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFlowToIterate_4" offsetLabelX="0" offsetLabelY="0" source="tFlowToIterate_4" target="tMysqlInput_4">
+    <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
+    <elementParameter field="TEXT" name="NUMBER_PARALLEL" value="2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="iterate4" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tMysqlInput_4" offsetLabelX="0" offsetLabelY="0" source="tMysqlInput_4" target="tXMLMap_5">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="id"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="id_requisition"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="amount"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="delivery_in_days"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="delivery_type"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="comments"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="status"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="open_date"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="close_date"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="isnotified_open"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="isnotified_close"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row6" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="requisitionOutput" lineStyle="0" metaname="requisitionOutput" offsetLabelX="0" offsetLabelY="0" source="tXMLMap_5" target="tRESTResponse_5">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="body"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="requisitionOutput" show="false"/>
   </connection>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTRequest_1" show="false"/>

@@ -383,7 +383,7 @@
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" show="false"/>
     <elementParameter field="CHECK" name="KEEP_ORDER_FOR_DOCUMENT" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="MapXMLofAllCategories"/>
+    <elementParameter field="TEXT" name="LABEL" value="XML requisitions"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="allRequisitions">
       <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
@@ -507,7 +507,7 @@
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" show="false"/>
     <elementParameter field="CHECK" name="KEEP_ORDER_FOR_DOCUMENT" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="XML Opened Categories"/>
+    <elementParameter field="TEXT" name="LABEL" value="XML requisitions for offer"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="openedRequisitions">
       <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
@@ -524,15 +524,15 @@
       </inputTrees>
       <outputTrees activateCondensedTool="true" name="openedRequisitions" allInOne="true">
         <nodes name="body" expression="" type="id_Document" xpath="openedRequisitions/body" pattern="">
-          <children xsi:type="TalendXMLMap:OutputTreeNode" name="openRequisitionCategories" expression="" type="id_String" xpath="openedRequisitions.body:/openRequisitionCategories" main="true">
-            <children xsi:type="TalendXMLMap:OutputTreeNode" name="openRequisitionCategory" expression="" type="id_String" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory" loop="true" main="true">
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id" expression=" requisitions_for_offer.id" type="id_Integer" incomingConnections="//@node.11/@nodeData/@connections.0" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/id"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id_category" expression=" requisitions_for_offer.id_category" type="id_Integer" incomingConnections="//@node.11/@nodeData/@connections.1" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/id_category"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="description" expression=" requisitions_for_offer.description" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.2" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/description"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="shipping_address" expression=" requisitions_for_offer.shipping_address" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.3" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/shipping_address"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="quantity" expression=" requisitions_for_offer.quantity" type="id_Double" incomingConnections="//@node.11/@nodeData/@connections.4" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/quantity"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="limit_date" expression=" requisitions_for_offer.limit_date" type="id_Date" incomingConnections="//@node.11/@nodeData/@connections.5" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/limit_date"/>
-              <children xsi:type="TalendXMLMap:OutputTreeNode" name="base_amount" expression=" requisitions_for_offer.base_amount" type="id_Double" incomingConnections="//@node.11/@nodeData/@connections.6" xpath="openedRequisitions.body:/openRequisitionCategories/openRequisitionCategory/base_amount"/>
+          <children xsi:type="TalendXMLMap:OutputTreeNode" name="root" expression="" type="id_String" xpath="openedRequisitions.body:/root" main="true">
+            <children xsi:type="TalendXMLMap:OutputTreeNode" name="requisitions" expression="" type="id_String" xpath="openedRequisitions.body:/root/requisitions" loop="true" main="true">
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id" expression=" requisitions_for_offer.id" type="id_Integer" incomingConnections="//@node.11/@nodeData/@connections.0" xpath="openedRequisitions.body:/root/requisitions/id"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id_category" expression=" requisitions_for_offer.id_category" type="id_Integer" incomingConnections="//@node.11/@nodeData/@connections.1" xpath="openedRequisitions.body:/root/requisitions/id_category"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="description" expression=" requisitions_for_offer.description" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.2" xpath="openedRequisitions.body:/root/requisitions/description"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="shipping_address" expression=" requisitions_for_offer.shipping_address" type="id_String" incomingConnections="//@node.11/@nodeData/@connections.3" xpath="openedRequisitions.body:/root/requisitions/shipping_address"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="quantity" expression=" requisitions_for_offer.quantity" type="id_Double" incomingConnections="//@node.11/@nodeData/@connections.4" xpath="openedRequisitions.body:/root/requisitions/quantity"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="limit_date" expression=" requisitions_for_offer.limit_date" type="id_Date" incomingConnections="//@node.11/@nodeData/@connections.5" xpath="openedRequisitions.body:/root/requisitions/limit_date"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="base_amount" expression=" requisitions_for_offer.base_amount" type="id_Double" incomingConnections="//@node.11/@nodeData/@connections.6" xpath="openedRequisitions.body:/root/requisitions/base_amount"/>
             </children>
           </children>
         </nodes>
@@ -625,7 +625,7 @@
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" show="false"/>
     <elementParameter field="CHECK" name="KEEP_ORDER_FOR_DOCUMENT" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="MapXMLResult"/>
+    <elementParameter field="TEXT" name="LABEL" value="XML categories"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="all">
       <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
@@ -857,7 +857,7 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="getRequisitions" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="getRequisitionsForOffer" lineStyle="0" metaname="getRequisitionsForOffer" offsetLabelX="-2" offsetLabelY="48" outputId="3" source="tRESTRequest_1" target="tFlowToIterate_3">
+  <connection connectorName="FLOW" label="getRequisitionsForOffer" lineStyle="0" metaname="getRequisitionsForOffer" offsetLabelX="-3" offsetLabelY="34" outputId="3" source="tRESTRequest_1" target="tFlowToIterate_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="id"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -875,7 +875,7 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="getCategories" show="false"/>
   </connection>
-  <connection connectorName="FLOW" label="getLogin" lineStyle="0" metaname="getLogin" offsetLabelX="-10" offsetLabelY="50" outputId="5" source="tRESTRequest_1" target="tXMLMap_6">
+  <connection connectorName="FLOW" label="getLogin" lineStyle="0" metaname="getLogin" offsetLabelX="-12" offsetLabelY="50" outputId="5" source="tRESTRequest_1" target="tXMLMap_6">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="body"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -1049,6 +1049,14 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="all" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="credentials" lineStyle="0" metaname="credentials" offsetLabelX="0" offsetLabelY="0" source="tXMLMap_6" target="tFlowToIterate_5">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="email"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="password"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="credentials" show="false"/>
   </connection>
