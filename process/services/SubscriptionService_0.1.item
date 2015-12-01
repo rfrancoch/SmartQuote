@@ -119,6 +119,12 @@
       <elementValue elementRef="CONSUMES" value="NONE"/>
       <elementValue elementRef="PRODUCES" value="XML-JSON"/>
       <elementValue elementRef="STREAMING" value="false"/>
+      <elementValue elementRef="SCHEMA" value="isSubscribed"/>
+      <elementValue elementRef="HTTP_VERB" value="GET"/>
+      <elementValue elementRef="URI_PATTERN" value="&quot;/{id_user}/{id_category}&quot;"/>
+      <elementValue elementRef="CONSUMES" value="NONE"/>
+      <elementValue elementRef="PRODUCES" value="XML-JSON"/>
+      <elementValue elementRef="STREAMING" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="SERVICE_LOCATOR" value="false"/>
     <elementParameter field="TEXT" name="SERVICE_NAMESPACE" value="&quot;http://www.talend.org/rest/&quot;" show="false"/>
@@ -146,6 +152,10 @@
     </metadata>
     <metadata connector="FLOW" name="unsubscribe">
       <column key="false" length="0" name="id_user" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="id_category" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+    <metadata connector="FLOW" label="isSubscribed" name="isSubscribed">
+      <column comment="" key="false" length="-1" name="id_user" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="id_category" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
@@ -189,14 +199,14 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="800" posY="288">
+  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="960" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTResponse_2" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="REST_RESPONSE_SCHEMA_TYPE" name="RESPONSE_TYPE" value="id_Document"/>
     <elementParameter field="CLOSED_LIST" name="STATUS_CODE" value="200"/>
     <elementParameter field="TEXT" name="CUSTOM_STATUS_CODE" value="200" show="false"/>
     <elementParameter field="TABLE" name="RESPONSE_HEADERS"/>
-    <elementParameter field="CHECK" name="UNWRAP_JSON_RESPONSE" value="false"/>
+    <elementParameter field="CHECK" name="UNWRAP_JSON_RESPONSE" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="RestResponse_SubscriptionServiceUpdate"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tRESTResponse_2">
@@ -273,17 +283,111 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="-3" offsetLabelY="0" posX="800" posY="160">
+  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="-3" offsetLabelY="0" posX="960" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTResponse_1" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
     <elementParameter field="REST_RESPONSE_SCHEMA_TYPE" name="RESPONSE_TYPE" value="id_Document"/>
     <elementParameter field="CLOSED_LIST" name="STATUS_CODE" value="200"/>
     <elementParameter field="TEXT" name="CUSTOM_STATUS_CODE" value="200" show="false"/>
     <elementParameter field="TABLE" name="RESPONSE_HEADERS"/>
-    <elementParameter field="CHECK" name="UNWRAP_JSON_RESPONSE" value="false"/>
+    <elementParameter field="CHECK" name="UNWRAP_JSON_RESPONSE" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="RestResponse_SubscriptionServicePost"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tRESTResponse_1">
+      <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFlowToIterate" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="64">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFlowToIterate_1" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
+    <elementParameter field="CHECK" name="DEFAULT_MAP" value="true"/>
+    <elementParameter field="TABLE" name="MAP" show="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="Iterate_on_query"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFlowToIterate_1"/>
+  </node>
+  <node componentName="tMysqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="64">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlInput_1" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_5"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false"/>
+    <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;"/>
+    <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;smartquote&quot;"/>
+    <elementParameter field="TEXT" name="TYPE" value="MySQL" show="false"/>
+    <elementParameter field="TEXT" name="USER" value="&quot;squser&quot;"/>
+    <elementParameter field="PASSWORD" name="PASS" value="50ccwHVB7VCPlLnbswdaEw=="/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;subscription&quot;"/>
+    <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
+    <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select id_user, id_category from subscription where id_user = &quot; + isSubscribed.id_user + &quot; and id_category = &quot; +  isSubscribed.id_category"/>
+    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
+    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id" show="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&quot;"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="ENABLE_STREAM" value="false"/>
+    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
+    <elementParameter field="TABLE" name="TRIM_COLUMN">
+      <elementValue elementRef="SCHEMA_COLUMN" value="id_user"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="id_category"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="LABEL" value="Query_on_Subscription"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tMysqlInput_1">
+      <column comment="" key="false" length="-1" name="id_user" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="id_category" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tXMLMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="768" posY="64">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tXMLMap_2" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
+    <elementParameter field="EXTERNAL" name="MAP" value=""/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" show="false"/>
+    <elementParameter field="CHECK" name="KEEP_ORDER_FOR_DOCUMENT" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="Map_Query_Results"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="map_results">
+      <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
+    </metadata>
+    <nodeData xsi:type="TalendXMLMap:XmlMapData">
+      <inputTrees name="subscription_result" matchingMode="ALL_ROWS" lookupMode="LOAD_ONCE">
+        <nodes name="id_user" type="id_String" outgoingConnections="//@node.8/@nodeData/@connections.0" xpath="subscription_result/id_user"/>
+        <nodes name="id_category" type="id_String" outgoingConnections="//@node.8/@nodeData/@connections.1" xpath="subscription_result/id_category"/>
+      </inputTrees>
+      <outputTrees activateCondensedTool="true" name="map_results" allInOne="true">
+        <nodes name="body" expression="" type="id_Document" xpath="map_results/body">
+          <children xsi:type="TalendXMLMap:OutputTreeNode" name="root" expression="" type="id_String" xpath="map_results.body:/root" main="true">
+            <children xsi:type="TalendXMLMap:OutputTreeNode" name="subscription" expression="" type="id_String" xpath="map_results.body:/root/subscription" loop="true" main="true">
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id_user" expression="subscription_result.id_user" type="id_String" incomingConnections="//@node.8/@nodeData/@connections.0" xpath="map_results.body:/root/subscription/id_user"/>
+              <children xsi:type="TalendXMLMap:OutputTreeNode" name="id_category" expression="subscription_result.id_category" type="id_String" incomingConnections="//@node.8/@nodeData/@connections.1" xpath="map_results.body:/root/subscription/id_category"/>
+            </children>
+          </children>
+        </nodes>
+      </outputTrees>
+      <varTables name="Var" minimized="true"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.8/@nodeData/@inputTrees.0/@nodes.0" target="//@node.8/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.0"/>
+      <connections xsi:type="TalendXMLMap:Connection" source="//@node.8/@nodeData/@inputTrees.0/@nodes.1" target="//@node.8/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.1"/>
+    </nodeData>
+  </node>
+  <node componentName="tRESTResponse" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="960" posY="64">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTResponse_3" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="C:\Talend\Studio\configuration\lib\java" show="false"/>
+    <elementParameter field="REST_RESPONSE_SCHEMA_TYPE" name="RESPONSE_TYPE" value="id_Document"/>
+    <elementParameter field="CLOSED_LIST" name="STATUS_CODE" value="200"/>
+    <elementParameter field="TEXT" name="CUSTOM_STATUS_CODE" value="200" show="false"/>
+    <elementParameter field="TABLE" name="RESPONSE_HEADERS"/>
+    <elementParameter field="CHECK" name="UNWRAP_JSON_RESPONSE" value="true"/>
+    <elementParameter field="TEXT" name="LABEL" value="RestResponse_Suscription"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tRESTResponse_3">
       <column defaultValue="" key="false" length="0" name="body" nullable="true" precision="0" sourceType="" type="id_Document" usefulColumn="true"/>
     </metadata>
   </node>
@@ -307,6 +411,18 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="unsubscribe" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="isSubscribed" lineStyle="0" metaname="isSubscribed" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tRESTRequest_1" target="tFlowToIterate_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="id_user"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="id_category"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="isSubscribed" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tMysqlRow_2" offsetLabelX="0" offsetLabelY="0" source="tMysqlRow_2" target="tRESTResponse_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -334,6 +450,32 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" show="false"/>
+  </connection>
+  <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFlowToIterate_1" offsetLabelX="0" offsetLabelY="0" source="tFlowToIterate_1" target="tMysqlInput_1">
+    <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
+    <elementParameter field="TEXT" name="NUMBER_PARALLEL" value="2" show="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="iterate1" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="subscription_result" lineStyle="0" metaname="tMysqlInput_1" offsetLabelX="-4" offsetLabelY="-47" source="tMysqlInput_1" target="tXMLMap_2">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="id_user"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="id_category"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="subscription_result" show="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="map_results" lineStyle="0" metaname="map_results" offsetLabelX="0" offsetLabelY="0" source="tXMLMap_2" target="tRESTResponse_3">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="body"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="map_results" show="false"/>
   </connection>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRESTRequest_1" show="false"/>
